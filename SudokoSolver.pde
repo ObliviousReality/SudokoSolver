@@ -59,8 +59,6 @@ void solve(int x, int y) {
     }
     int gridX = findPos(ceil(x / 3));
     int gridY = findPos(ceil(y / 3));
-    int[] centerPos = {gridX, gridY};
-    println(centerPos);
     //square:
     for (int i = -1; i < 2;i++) {
         for (int j = -1; j < 2;j++) {
@@ -87,6 +85,19 @@ void solve(int x, int y) {
         grid[x][y] = output;
     }
     // println(options);
+}
+
+boolean check() {
+    println("Checking:");
+    String[] solution = loadStrings("solution.txt");
+    for (int i = 0; i < DIM; i++) {
+        for (int j = 0; j < DIM; j++) {
+            if (grid[j][i] != Integer.parseInt(solution[i].split("")[j]))
+                return false;
+        }
+    }
+    println("Check Successful!");
+    return true;
 }
 
 void draw() {
@@ -127,6 +138,7 @@ void draw() {
     }
     if (end) {
         noLoop();
+
     }
     if (!solved) {
         if (grid[xPos][yPos]  == 0)
@@ -139,10 +151,18 @@ void draw() {
         if (yPos > 8) {
             yPos = 0;
         }
-    } else{
-        println("Solved");
-        backcol = color(0,128,0);
-        end = true;
+    } else if (solved && !end) {
+        if (check()) {
+            backcol = color(0,128,0);
+            println("Solved!");
+            end = true;
+        }
+        else{
+            backcol = color(128,0,0);
+            println("Not solved.");
+            end = true;
+        }
+
     }
 
 }
