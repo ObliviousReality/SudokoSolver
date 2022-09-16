@@ -5,21 +5,22 @@ int[][] grid = new int[DIM][DIM];
 
 void setup() {
     size(450,450);
+    String[] lines = loadStrings("puzzle.txt");
     for (int i = 0; i < DIM; i++) {
         for (int j = 0; j < DIM; j++) {
-            grid[i][j] = i;
+            grid[j][i] = Integer.parseInt(lines[i].split("")[j]);
         }
     }
 }
 
 void draw() {
-    background(0);
+    background(255);
     int w = width / DIM;
     int h = height / DIM;
     textSize(w * 0.75);
     textAlign(CENTER, CENTER);
-    fill(255);
-    stroke(255);
+    fill(0);
+    stroke(0);
     // text("H", w/2, w/2);
     for (int i = 0; i < DIM; i++) {
         for (int j = 0; j < DIM; j++) {
@@ -40,7 +41,8 @@ void draw() {
             cellX += w / 2;
             int cellY = j * h;
             cellY += h / 2;
-            text(grid[i][j], cellX, cellY);
+            if (grid[i][j] > 0) text(grid[i][j], cellX, cellY);
+
 
         }
     }
